@@ -1,0 +1,46 @@
+`timescale 1ns / 1ps
+
+module tb_vending_machine;
+    reg clk;
+    reg rst;
+    reg [1:0] in;
+
+    wire out;
+    wire [1:0] change;
+
+    vending_machine uut (
+        .clk(clk),
+        .rst(rst),
+        .in(in),
+        .out(out),
+        .change(change)
+    );
+
+    always #5 clk = ~clk;
+
+    initial begin
+        clk = 0;
+        rst = 1;
+        in = 2'b00;
+
+        #10 rst = 0;
+        #10 in = 2'b00; 
+
+        #10 in = 2'b01;
+
+        #10 in = 2'b01;
+
+        #10 in = 2'b10;
+
+        #10 rst = 1;   
+        #10 rst = 0;
+
+        #10 in = 2'b10; 
+
+        #10 in = 2'b00;
+
+        #10 in = 2'b01;
+        
+        #10 $finish;
+    end
+endmodule
